@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class EnemyManager : MonoBehaviour
 {
      public GameObject player;
+     public static float damage = 20.0f;
 
      [SerializeField] private Animator enemyAnimator;
      void Start()
@@ -37,6 +38,8 @@ public class EnemyManager : MonoBehaviour
         if(collision.gameObject == player)
         {
             Debug.Log("L'enemic m'ataca!!");
+            PlayerManager.Hit(damage);
+            Debug.Log(PlayerManager.health);
         }
     }
 

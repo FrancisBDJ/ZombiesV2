@@ -738,6 +738,7 @@ GameObject:
   - component: {fileID: 8092917453455637098}
   - component: {fileID: 8092917453455637100}
   - component: {fileID: 8092917453455637101}
+  - component: {fileID: 9176962077657654897}
   m_Layer: 0
   m_Name: weapon
   m_TagString: Untagged
@@ -810,6 +811,18 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &9176962077657654897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8092917453455637099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 521ee7c4dbc625b4c94087a518aad1bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8092917453503506700
 GameObject:
   m_ObjectHideFlags: 0
@@ -1047,6 +1060,7 @@ GameObject:
   - component: {fileID: 8092917454040581144}
   - component: {fileID: 8092917454040581146}
   - component: {fileID: 8092917454040581147}
+  - component: {fileID: 8798134203147799859}
   m_Layer: 0
   m_Name: FPS_Character
   m_TagString: Untagged
@@ -1105,6 +1119,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerTransform: {fileID: 8092917452951875947}
+--- !u!114 &8798134203147799859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8092917454040581145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cf0d8d36ffd80246b1dfe58f9bea216, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8092917454089183634
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
     public float groundDistance = 0.4f; //Umbral de distància enterra
     public LayerMask ground;
     private float playerSpeed = 12.0f;
-    private float jumpHeight = 2.5f;
+    private float jumpHeight = 2f;
     public float gravity = -9.81f;
     
     // Start is called before the first frame update
@@ -38,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
         float z = Input.GetAxis("Vertical");
 
         Vector3 move = transform.right * x + transform.forward * z;
-        controller.Move(move* playerSpeed * Time.deltaTime);
+        controller.Move(move * playerSpeed * Time.deltaTime);
 
         
         
@@ -48,7 +48,7 @@ public class PlayerMovement : MonoBehaviour
         
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
-            playerVelocity.y += Mathf.Sqrt(jumpHeight * -2.0f * gravity);
+            playerVelocity.y = Mathf.Sqrt(jumpHeight * -2.0f * gravity);
         }
     }
 }

@@ -6,12 +6,17 @@ using UnityEngine.AI;
 public class EnemyManager : MonoBehaviour
 {
      public GameObject player;
-     public static float damage = 20.0f;
-
+     public float damage = 20.0f;
      [SerializeField] private Animator enemyAnimator;
+     // Salut de l'enemic
+     public float health = 100f;
+     [SerializeField]private GameManager gameManager;
+    
      void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        gameManager = GameObject.FindObjectOfType<GameManager>();
+
     }
 
     // Update is called once per frame
@@ -41,6 +46,21 @@ public class EnemyManager : MonoBehaviour
             PlayerManager.Hit(damage);
             Debug.Log(PlayerManager.health);
         }
+    }
+    
+    public void Hit(float damage)
+    {
+        health -= damage;
+        Debug.Log(health);
+        if (health <= 0)
+        {
+            // Destrium a l'enemic quan la seva salut arriba a zero
+            // feim referència a ell amb la variable gameObject, que fa referència al GO
+            // que conté el componentn EnemyManager
+            gameManager.enemiesAlive --;
+            Destroy(gameObject);
+        }
+
     }
 
 }

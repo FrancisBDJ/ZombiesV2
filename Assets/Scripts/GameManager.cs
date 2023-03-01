@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -11,7 +12,8 @@ public class GameManager : MonoBehaviour
     public int enemiesPerRound;
     [SerializeField]public GameObject[] spawnPoints;
     [SerializeField]public GameObject enemyPrefab;
-
+    [SerializeField] public TextMeshProUGUI  roundTXT;
+    [SerializeField] public TextMeshProUGUI  zombiesTXT;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +24,8 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        roundTXT.text = "Round: " + round;
+        zombiesTXT.text = ("Zombies: " +enemiesAlive +"/"+enemiesPerRound);
         enemiesAlive = GameObject.FindGameObjectsWithTag("enemy").Length;
         if (enemiesAlive == 0)
         {

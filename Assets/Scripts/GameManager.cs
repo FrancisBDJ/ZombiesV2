@@ -11,6 +11,7 @@ using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
+    public bool isPaused;
     public int enemiesAlive;
     public int round;
     public int enemiesPerRound;
@@ -26,6 +27,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         round = 1;
+        isPaused = false;
         pausePanel.SetActive(false);
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
@@ -78,6 +80,7 @@ public class GameManager : MonoBehaviour
 
     public void Pause()
     {
+        isPaused = true;
         pausePanel.SetActive(true);
         Time.timeScale = 0;
         Cursor.visible = true;
@@ -86,6 +89,7 @@ public class GameManager : MonoBehaviour
 
     public void Resume()
     {
+        isPaused = false;
         pausePanel.SetActive(false);
         Time.timeScale = 1;
         Cursor.visible = false;

@@ -8,31 +8,28 @@ public class WeaponManager : MonoBehaviour
     public float range = 100f; // Fins on volem que arribin els tirs
     public float damage = 25.0f;
     public Animator playerAnimator;
-     
+    private GameManager _gameManager; 
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        _gameManager = FindObjectOfType<GameManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Shoot();
-        }
-        else
+        if (_gameManager.isPaused != true)
         {
             if(playerAnimator.GetBool("isShooting"))
             {
                 playerAnimator.SetBool("isShooting", false);
             } 
+            if (Input.GetMouseButtonDown(0))
+            {
+                Shoot();
+            }
         }
-
-        
-        
     }
     private void Shoot()
     {

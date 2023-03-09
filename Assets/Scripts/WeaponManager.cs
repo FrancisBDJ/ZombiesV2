@@ -9,6 +9,10 @@ public class WeaponManager : MonoBehaviour
     public float damage = 25.0f;
     public Animator playerAnimator;
     private GameManager _gameManager; 
+    // Referència per a gestionar el sistema de particules
+    public ParticleSystem flashParticleSystem;
+    public GameObject bloodParticleSystem;
+
 
     // Start is called before the first frame update
     void Start()
@@ -35,6 +39,7 @@ public class WeaponManager : MonoBehaviour
     {
         playerAnimator.SetBool("isShooting", true);
         Debug.Log((playerAnimator.GetBool("isShooting")));
+        flashParticleSystem.Play();
         RaycastHit hit;
         if (Physics.Raycast(playerCam.transform.position, transform.forward, out hit, range))
         {
@@ -44,6 +49,14 @@ public class WeaponManager : MonoBehaviour
             EnemyManager enemyManager = hit.transform.GetComponent<EnemyManager>();
             if(enemyManager != null)
             {
+                // generam una instància del particle system, en el punt on hem ferit al Zombie,
+                // i fent que l'animació sempre estigui rotada en direcció al tret
+                GameObject particleInstance = Instantiate(bloodParticleSystem, hit.point, Quaternion.LookRotation(hit.normal));
+                // Feim que la instància sigui filla del Zombie al qual hem ferit
+                particleInstance.transform.parent = hit.transform;
+                // Recordau que aquesta animació te seleccionat per Stop Action: "Destroy" ja que sinó es crearien infinites instàncies
+
+
                 enemyManager.Hit(damage);
             }
 

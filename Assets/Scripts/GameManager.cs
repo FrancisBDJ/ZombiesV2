@@ -42,7 +42,6 @@ public class GameManager : MonoBehaviour
     {
         roundTXT.text = "Round: " + round;
         zombiesTXT.text = ("Zombies: " +enemiesAlive +"/"+enemiesPerRound);
-        enemiesAlive = GameObject.FindGameObjectsWithTag("enemy").Length;
         if (enemiesAlive == 0)
         {
             round++;
@@ -63,10 +62,12 @@ public class GameManager : MonoBehaviour
         {
             GameObject spawnPoint = spawnPoints[Random.Range( 0, 4)];
             Instantiate(enemyPrefab, spawnPoint.transform.position, Quaternion.identity);
-        }    
+        }
+
+        enemiesAlive = enemiesPerRound;
     }
     
-    public void RestartGame()
+    public static void RestartGame()
     {
         Time.timeScale = 1;
         SceneManager.LoadScene("Game");

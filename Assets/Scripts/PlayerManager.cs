@@ -61,7 +61,7 @@ public class PlayerManager : MonoBehaviour
 
     static void Die()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        GameManager.RestartGame();
     }
 
     public void CameraShake()

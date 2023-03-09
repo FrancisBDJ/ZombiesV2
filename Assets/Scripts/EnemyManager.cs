@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class EnemyManager : MonoBehaviour
 {
@@ -11,12 +12,14 @@ public class EnemyManager : MonoBehaviour
      // Salut de l'enemic
      public float health = 100f;
      [SerializeField]private GameManager gameManager;
+     public Slider healthBar;
     
      void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        gameManager = GameObject.FindObjectOfType<GameManager>();
-
+        gameManager = FindObjectOfType<GameManager>();
+        healthBar.maxValue = health;
+        healthBar.value = health;
     }
 
     // Update is called once per frame
@@ -51,6 +54,7 @@ public class EnemyManager : MonoBehaviour
     public void Hit(float damage)
     {
         health -= damage;
+        healthBar.value = health;
         Debug.Log(health);
         if (health <= 0)
         {

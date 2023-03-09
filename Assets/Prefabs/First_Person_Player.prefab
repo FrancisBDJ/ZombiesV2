@@ -430,6 +430,7 @@ GameObject:
   - component: {fileID: 8092917452951875947}
   - component: {fileID: 8092917452951875944}
   - component: {fileID: 8092917452951875945}
+  - component: {fileID: 4243986784656656500}
   m_Layer: 0
   m_Name: First_Person_Player
   m_TagString: Player
@@ -492,6 +493,19 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   gravity: -9.81
+--- !u!135 &4243986784656656500
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8092917452951875942}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.5
+  m_Center: {x: 0, y: 0.4, z: 0}
 --- !u!1 &8092917452969405421
 GameObject:
   m_ObjectHideFlags: 0
@@ -923,6 +937,7 @@ MonoBehaviour:
   playerCam: {fileID: 0}
   range: 100
   damage: 25
+  playerAnimator: {fileID: 0}
 --- !u!1 &8092917453503506700
 GameObject:
   m_ObjectHideFlags: 0
@@ -1231,6 +1246,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cf0d8d36ffd80246b1dfe58f9bea216, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerCamera: {fileID: 0}
   Healthbar: {fileID: 0}
 --- !u!1 &8092917454089183634
 GameObject:

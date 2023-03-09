@@ -13,7 +13,12 @@ public class EnemyManager : MonoBehaviour
      public float health = 100f;
      [SerializeField]private GameManager gameManager;
      public Slider healthBar;
-    
+     // Animacio i millora del xoc
+     public bool playerInReach;
+     public float attackDelayTimer;
+     public float howMuchEarlierStartAttackAnimation = 1f;
+     public float delayBetweenAttacks = 0.6f;
+
      void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -46,11 +51,41 @@ public class EnemyManager : MonoBehaviour
         if(collision.gameObject == player)
         {
             Debug.Log("L'enemic m'ataca!!");
-            PlayerManager.Hit(damage);
+            //PlayerManager.Hit(damage);
             Debug.Log(PlayerManager.health);
+            playerInReach = true;
+        }
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if (playerInReach)
+        {
+            attackDelayTimer += Time.deltaTime;
+            if (attackDelayTimer >= delayBetweenAttacks - howMuchEarlierStartAttackAnimation &&
+                attackDelayTimer <= delayBetweenAttacks)
+            {
+                enemyAnimator.SetTrigger("IsAttacking");
+            }
+            if(attackDelayTimer >= delayBetweenAttacks)
+            {
+                PlayerManager.Hit(damage);
+                attackDelayTimer = 0;
+            }
         }
     }
     
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject == player)
+        {
+            playerInReach = false;
+            attackDelayTimer = 0;
+        }
+    }
+
+
+
     public void Hit(float damage)
     {
         health -= damage;
@@ -62,7 +97,13 @@ public class EnemyManager : MonoBehaviour
             // feim referència a ell amb la variable gameObject, que fa referència al GO
             // que conté el componentn EnemyManager
             gameManager.enemiesAlive --;
-            Destroy(gameObject);
+            //Destroy(gameObject);
+            enemyAnimator.SetTrigger("IsDead");
+            Destroy(gameObject,10f);
+            Destroy(GetComponent<NavMeshAgent>());
+            Destroy(GetComponent<EnemyManager>());
+            Destroy(GetComponent<CapsuleCollider>());
+
         }
 
     }

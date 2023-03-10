@@ -4437,6 +4437,36 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2640051575844019713, guid: a706bccaf129ff848a46d4a536be94ab,
+        type: 3}
+      propertyPath: m_Pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2640051575844019713, guid: a706bccaf129ff848a46d4a536be94ab,
+        type: 3}
+      propertyPath: Priority
+      value: 128
+      objectReference: {fileID: 0}
+    - target: {fileID: 2640051575844019713, guid: a706bccaf129ff848a46d4a536be94ab,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2640051575844019713, guid: a706bccaf129ff848a46d4a536be94ab,
+        type: 3}
+      propertyPath: MaxDistance
+      value: 1.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 2640051575844019713, guid: a706bccaf129ff848a46d4a536be94ab,
+        type: 3}
+      propertyPath: MinDistance
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2640051575844019713, guid: a706bccaf129ff848a46d4a536be94ab,
+        type: 3}
+      propertyPath: rolloffMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3651371546208861205, guid: a706bccaf129ff848a46d4a536be94ab,
         type: 3}
       propertyPath: m_RootOrder

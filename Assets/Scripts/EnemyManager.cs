@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
@@ -18,13 +19,27 @@ public class EnemyManager : MonoBehaviour
      public float attackDelayTimer;
      public float howMuchEarlierStartAttackAnimation = 1f;
      public float delayBetweenAttacks = 0.6f;
-
+     // Audio Zombie
+     private AudioSource zombieAudioSource;
+     public AudioClip Zombie1AudioClip;
+     public AudioClip Zombie2AudioClip;
+     public AudioClip Zombie3AudioClip;
+     public AudioClip[] ZombieAudioClips;
+     public AudioClip currentClip;
+     public float minWaitBetweenPlays = 1f;
+     public float maxWaitBetweenPlays = 5f;
+     public float waitTimeCountdown = -1f;
+     
+     
      void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         gameManager = FindObjectOfType<GameManager>();
+        zombieAudioSource = this.gameObject.GetComponent<AudioSource>();
+        ZombieAudioClips = new AudioClip[3]{ Zombie1AudioClip, Zombie2AudioClip, Zombie3AudioClip };
         healthBar.maxValue = health;
         healthBar.value = health;
+        
     }
 
     // Update is called once per frame
@@ -33,11 +48,12 @@ public class EnemyManager : MonoBehaviour
         // Accedim al component NavMeshComponent, el qual té un element que es destination de tipus Vector3
         // Li podem assignar la posició del jugador, que el tenim a la variable player gràcies al seu tranform
         GetComponent<NavMeshAgent>().destination = player.transform.position;
-
-       
+        
+        ZombieMoan();
         if (GetComponent<NavMeshAgent>().velocity.magnitude > 1)
         {
             enemyAnimator.SetBool("IsRunning", true);
+            
         }
         else
         {
@@ -66,6 +82,7 @@ public class EnemyManager : MonoBehaviour
                 attackDelayTimer <= delayBetweenAttacks)
             {
                 enemyAnimator.SetTrigger("IsAttacking");
+                ZombieMoan();
             }
             if(attackDelayTimer >= delayBetweenAttacks)
             {
@@ -91,6 +108,7 @@ public class EnemyManager : MonoBehaviour
         health -= damage;
         healthBar.value = health;
         Debug.Log(health);
+        ZombieMoan();
         if (health <= 0)
         {
             // Destrium a l'enemic quan la seva salut arriba a zero
@@ -99,6 +117,7 @@ public class EnemyManager : MonoBehaviour
             gameManager.enemiesAlive --;
             //Destroy(gameObject);
             enemyAnimator.SetTrigger("IsDead");
+            ZombieMoan();
             Destroy(gameObject,10f);
             Destroy(GetComponent<NavMeshAgent>());
             Destroy(GetComponent<EnemyManager>());
@@ -106,6 +125,24 @@ public class EnemyManager : MonoBehaviour
 
         }
 
+    }
+
+    public void ZombieMoan()
+    {
+        if (!zombieAudioSource.isPlaying)
+        {
+            if (waitTimeCountdown < 0f)
+            {
+                currentClip = ZombieAudioClips[Random.Range(0, ZombieAudioClips.Length)];
+                zombieAudioSource.clip = currentClip;
+                zombieAudioSource.Play();
+                waitTimeCountdown = Random.Range(minWaitBetweenPlays, maxWaitBetweenPlays);
+            }
+            else
+            {
+                waitTimeCountdown -= Time.deltaTime;
+            }
+        }
     }
 
 }

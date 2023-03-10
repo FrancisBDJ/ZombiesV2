@@ -12,12 +12,16 @@ public class WeaponManager : MonoBehaviour
     // Referència per a gestionar el sistema de particules
     public ParticleSystem flashParticleSystem;
     public GameObject bloodParticleSystem;
+    // Audio Weapon
+    private AudioSource _weaponAudioSource;
+    
 
 
     // Start is called before the first frame update
     void Start()
     {
         _gameManager = FindObjectOfType<GameManager>();
+        _weaponAudioSource = this.gameObject.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -37,6 +41,7 @@ public class WeaponManager : MonoBehaviour
     }
     private void Shoot()
     {
+        _weaponAudioSource.Play();
         playerAnimator.SetBool("isShooting", true);
         Debug.Log((playerAnimator.GetBool("isShooting")));
         flashParticleSystem.Play();

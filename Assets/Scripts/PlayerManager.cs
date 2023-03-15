@@ -11,7 +11,6 @@ public class PlayerManager : MonoBehaviour
     public static float health;
     public GameObject playerCamera;
     public Slider Healthbar;
-
     public static CanvasGroup hitPanel;
     // Variable per controlar el temps de vibració de la càmera
     private static float shakeTime = 1f;

@@ -15,14 +15,16 @@ public class GameManager : MonoBehaviour
     public int enemiesAlive;
     public int round;
     public int enemiesPerRound;
-    [SerializeField]public GameObject[] spawnPoints;
-    [SerializeField]public GameObject enemyPrefab;
-    [SerializeField] public TextMeshProUGUI  roundTXT;
-    [SerializeField] public TextMeshProUGUI  zombiesTXT;
-    [SerializeField] public GameObject pausePanel;
-    [SerializeField] public Button mainMenuBTN;
-    [SerializeField] public Button resumeBTN;
-    [SerializeField] public Button quitBTN;
+    public GameObject[] spawnPoints;
+    public GameObject enemyPrefab;
+    public TextMeshProUGUI  roundTXT;
+    public TextMeshProUGUI  zombiesTXT;
+    public GameObject pausePanel;
+    public Button mainMenuBTN;
+    public Button resumeBTN;
+    public Button quitBTN;
+    public Animator fadeAnim;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -76,7 +78,8 @@ public class GameManager : MonoBehaviour
     public void BackToMainMenu()
     {
         Time.timeScale = 1;
-        SceneManager.LoadScene("MainMenu");
+        fadeAnim.SetTrigger("FadeTrigger");
+        Invoke("LoadMainMenu",2.0f);
     }
 
     public void Pause()
@@ -104,6 +107,11 @@ public class GameManager : MonoBehaviour
 #else
         Application.Quit();
 #endif
+    }
+
+    public void LoadMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 
 }

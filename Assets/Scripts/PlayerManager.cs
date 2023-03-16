@@ -50,6 +50,7 @@ public class PlayerManager : MonoBehaviour
         hitPanel.alpha = 1;
         if (health <= 0)
         {
+            shakeTime = 0;
             Die();
         }
         else

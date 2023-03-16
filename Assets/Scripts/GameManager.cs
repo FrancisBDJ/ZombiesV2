@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
 {
     public bool isPaused;
     public int enemiesAlive;
-    public int round;
+    public static int round;
     public int enemiesPerRound;
     public GameObject[] spawnPoints;
     public GameObject enemyPrefab;
@@ -23,6 +23,10 @@ public class GameManager : MonoBehaviour
     public Button mainMenuBTN;
     public Button resumeBTN;
     public Button quitBTN;
+    public Button GOverMainMenuBTN;
+    public Button GOverTryAgainBTN;
+    public Button GOverQuitBTN;
+    public static TextMeshProUGUI  lastRoundTXT;
     public Animator fadeAnim;
     
     // Start is called before the first frame update
@@ -34,8 +38,11 @@ public class GameManager : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         mainMenuBTN.onClick.AddListener(BackToMainMenu);
+        GOverMainMenuBTN.onClick.AddListener(BackToMainMenu);
         resumeBTN.onClick.AddListener(Resume);
+        GOverTryAgainBTN.onClick.AddListener(RestartGame);
         quitBTN.onClick.AddListener(QuitGame);
+        GOverQuitBTN.onClick.AddListener(QuitGame);
         NextWave();
     }
 

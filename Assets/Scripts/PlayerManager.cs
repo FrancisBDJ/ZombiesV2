@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -12,6 +14,8 @@ public class PlayerManager : MonoBehaviour
     public GameObject playerCamera;
     public Slider Healthbar;
     public static CanvasGroup hitPanel;
+    public static GameObject gameOverPanel;
+    
     // Variable per controlar el temps de vibració de la càmera
     private static float shakeTime = 1f;
     private float shakeDuration = 0.5f;
@@ -50,7 +54,6 @@ public class PlayerManager : MonoBehaviour
         hitPanel.alpha = 1;
         if (health <= 0)
         {
-            shakeTime = 0;
             Die();
         }
         else
@@ -61,7 +64,9 @@ public class PlayerManager : MonoBehaviour
 
     static void Die()
     {
-        GameManager.RestartGame();
+        gameOverPanel.SetActive(true);
+        
+
     }
 
     public void CameraShake()

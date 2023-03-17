@@ -14,7 +14,7 @@ public class PlayerManager : MonoBehaviour
     public GameObject playerCamera;
     public Slider Healthbar;
     public static CanvasGroup hitPanel;
-    public static GameObject gameOverPanel;
+    public static GameManager gameManager;
     
     // Variable per controlar el temps de vibració de la càmera
     private static float shakeTime = 1f;
@@ -26,6 +26,7 @@ public class PlayerManager : MonoBehaviour
     {
         health = 100f;
         hitPanel = FindObjectOfType<CanvasGroup>();
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     // Update is called once per frame
@@ -54,20 +55,14 @@ public class PlayerManager : MonoBehaviour
         hitPanel.alpha = 1;
         if (health <= 0)
         {
-            Die();
+            gameManager.GameOver();
         }
         else
         {
             shakeTime = 0;
         }
     }
-
-    static void Die()
-    {
-        gameOverPanel.SetActive(true);
-        
-
-    }
+    
 
     public void CameraShake()
     {

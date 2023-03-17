@@ -26,9 +26,9 @@ public class GameManager : MonoBehaviour
     public Button GOverMainMenuBTN;
     public Button GOverTryAgainBTN;
     public Button GOverQuitBTN;
-    public static TextMeshProUGUI  lastRoundTXT;
+    public TextMeshProUGUI  lastRoundTXT;
     public Animator fadeAnim;
-    
+    public GameObject GOverPanel;
     // Start is called before the first frame update
     void Start()
     {
@@ -61,6 +61,15 @@ public class GameManager : MonoBehaviour
         {
             Pause();
         }
+    }
+    public void GameOver()
+    {
+        Time.timeScale = 0;
+        fadeAnim.SetTrigger("FadeTrigger");
+        GOverPanel.SetActive(true);
+        lastRoundTXT.text = "You died in Round: " + round;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 
     public void NextWave()

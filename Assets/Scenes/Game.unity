@@ -178,7 +178,9 @@ MonoBehaviour:
   GOverMainMenuBTN: {fileID: 925955203}
   GOverTryAgainBTN: {fileID: 253971165}
   GOverQuitBTN: {fileID: 547923230}
+  lastRoundTXT: {fileID: 1119840409}
   fadeAnim: {fileID: 1640131028}
+  GOverPanel: {fileID: 523642947}
 --- !u!4 &62103872
 Transform:
   m_ObjectHideFlags: 0
@@ -418,7 +420,7 @@ GameObject:
   - component: {fileID: 253971166}
   - component: {fileID: 253971165}
   m_Layer: 0
-  m_Name: TryAgainButton
+  m_Name: GOTryAgainButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -798,7 +800,7 @@ GameObject:
   - component: {fileID: 547923231}
   - component: {fileID: 547923230}
   m_Layer: 0
-  m_Name: QuitButton
+  m_Name: GOQuitButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1632,7 +1634,7 @@ GameObject:
   - component: {fileID: 925955204}
   - component: {fileID: 925955203}
   m_Layer: 0
-  m_Name: MainMenuButton
+  m_Name: GOMainMenuButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5849,6 +5851,11 @@ PrefabInstance:
       propertyPath: Healthbar
       value: 
       objectReference: {fileID: 1313734524}
+    - target: {fileID: 8798134203147799859, guid: a706bccaf129ff848a46d4a536be94ab,
+        type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 62103871}
     - target: {fileID: 8798134203147799859, guid: a706bccaf129ff848a46d4a536be94ab,
         type: 3}
       propertyPath: playerCamera

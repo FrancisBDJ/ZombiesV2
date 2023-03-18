@@ -27,7 +27,7 @@ public class WeaponManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_gameManager.isPaused != true)
+        if (_gameManager.isPaused != true && _gameManager.isDead != true)
         {
             if(playerAnimator.GetBool("isShooting"))
             {

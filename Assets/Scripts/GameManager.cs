@@ -12,6 +12,7 @@ using Random = UnityEngine.Random;
 public class GameManager : MonoBehaviour
 {
     public bool isPaused;
+    public bool isDead;
     public int enemiesAlive;
     public static int round;
     public int enemiesPerRound;
@@ -34,6 +35,7 @@ public class GameManager : MonoBehaviour
     {
         round = 1;
         isPaused = false;
+        isDead = false;
         pausePanel.SetActive(false);
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
@@ -64,6 +66,7 @@ public class GameManager : MonoBehaviour
     }
     public void GameOver()
     {
+        isDead = true;
         Time.timeScale = 0;
         fadeAnim.SetTrigger("FadeTrigger");
         GOverPanel.SetActive(true);
@@ -94,8 +97,7 @@ public class GameManager : MonoBehaviour
     public void BackToMainMenu()
     {
         Time.timeScale = 1;
-        fadeAnim.SetTrigger("FadeTrigger");
-        Invoke("LoadMainMenu",2.0f);
+        SceneManager.LoadScene("MainMenu");
     }
 
     public void Pause()

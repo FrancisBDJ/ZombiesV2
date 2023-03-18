@@ -19,7 +19,7 @@ public class MouseLook : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_gameManager.isPaused != true)
+        if (_gameManager.isPaused != true && _gameManager.isDead != true)
         {
             float rotateHorizontal = Input.GetAxis("Mouse X");
             float rotateVertical = Input.GetAxis("Mouse Y");

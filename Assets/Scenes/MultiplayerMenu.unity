@@ -711,7 +711,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startBtn: {fileID: 414621297}
-  mpBtn: {fileID: 523455119}
   quitBtn: {fileID: 1435385618}
 --- !u!4 &1550069024
 Transform:

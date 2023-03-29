@@ -8,7 +8,7 @@ public class WeaponManager : MonoBehaviour
     public float range = 100f; // Fins on volem que arribin els tirs
     public float damage = 25.0f;
     public Animator playerAnimator;
-    private GameManager _gameManager; 
+    
     // Referència per a gestionar el sistema de particules
     public ParticleSystem flashParticleSystem;
     public GameObject bloodParticleSystem;
@@ -20,14 +20,14 @@ public class WeaponManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _gameManager = FindObjectOfType<GameManager>();
+        
         _weaponAudioSource = this.gameObject.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (_gameManager.isPaused != true && _gameManager.isDead != true)
+        if (GameManager.sharedInstance.isPaused != true &&GameManager.sharedInstance.isDead != true)
         {
             if(playerAnimator.GetBool("isShooting"))
             {

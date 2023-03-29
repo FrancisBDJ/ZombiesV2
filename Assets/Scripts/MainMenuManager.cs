@@ -8,13 +8,15 @@ using UnityEngine.UI;
 
 public class MainMenuManager : MonoBehaviour
 {
-    [SerializeField]public Button startBtn;
-    [SerializeField]public Button quitBtn;
+    public Button startBtn;
+    public Button mpBtn;
+    public Button quitBtn;
     // Start is called before the first frame update
     void Start()
     {
         startBtn.onClick.AddListener(StartGame);
         quitBtn.onClick.AddListener(QuitGame);
+        mpBtn.onClick.AddListener(LoadMultiplayerMenu);
     }
 
     // Update is called once per frame
@@ -25,7 +27,12 @@ public class MainMenuManager : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene("Game");
+        SceneManager.LoadScene(2);
+    }
+
+    public void LoadMultiplayerMenu()
+    {
+        SceneManager.LoadScene(1);
     }
 
     public void QuitGame()

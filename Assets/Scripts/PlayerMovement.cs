@@ -5,15 +5,21 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]private CharacterController controller;
-    private Vector3 playerVelocity;
+    public float playerSpeed;
+    public float walkSpeed = 5.0f;
+    public float runSpeed = 10.0f;
+    
     
     // GroundCheck
     public bool isGrounded;
     public Transform groundCheck;
     public float groundDistance = 0.4f; //Umbral de distància enterra
     public LayerMask ground;
-    private float playerSpeed = 12.0f;
-    private float jumpHeight = 2f;
+    
+    //jump
+    public float jumpHeight = 2f;
+    //gravity
+    private Vector3 playerVelocity;
     public float gravity = -9.81f;
     
     // Start is called before the first frame update
@@ -47,6 +53,14 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             playerVelocity.y = Mathf.Sqrt(jumpHeight * -2.0f * gravity);
+        }
+        if (Input.GetButtonDown("Fire3") && isGrounded)
+        {
+            playerSpeed = runSpeed;
+        }
+        else
+        {
+            playerSpeed = walkSpeed;
         }
     }
 }

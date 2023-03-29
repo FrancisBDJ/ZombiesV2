@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -30,6 +31,21 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI  lastRoundTXT;
     public Animator fadeAnim;
     public GameObject GOverPanel;
+
+    public static GameManager sharedInstance;
+
+    public void Awake()
+    {
+        if (sharedInstance == null)
+        {
+            sharedInstance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -107,6 +123,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+        AudioListener.volume = 0;
     }
 
     public void Resume()
@@ -116,6 +133,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        AudioListener.volume = 1;
     }
     
     public void QuitGame()

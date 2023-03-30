@@ -2,12 +2,17 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
+
 
 public class NetworkingManager : MonoBehaviourPunCallbacks
 {
-    public Button multiplayerButton;
+    public Button playMpButton;
+    public Button backButton;
 
     // Start is called before the first frame update
     void Start()
@@ -31,6 +36,41 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
     public override void OnJoinedLobby()
     {
         Debug.Log("Ready to Play Multiplayer");
-        multiplayerButton.interactable = true;
+        playMpButton.interactable = true;
     }
+
+    public void FindMatch()
+    {
+        Debug.Log("Searching Room...");
+        PhotonNetwork.JoinRandomRoom();
+    }
+
+    public override void OnJoinRandomFailed(short returnCode, string message)
+    {
+        MakeRoom();
+    }
+
+    private void MakeRoom()
+    {
+        int randomRoomName = Random.Range(0, 5000);
+
+        RoomOptions roomOptions = new RoomOptions()
+        {
+            IsVisible = true,
+            IsOpen = true,
+            MaxPlayers = 6,
+            PublishUserId = true
+        };
+
+        PhotonNetwork.CreateRoom($"RoomName_{randomRoomName}", roomOptions);
+        Debug.Log($"Created Room {randomRoomName}");
+    }
+
+    public override void OnJoinedRoom()
+    {
+        Debug.Log($"Loading Multiplayer Scene");
+        PhotonNetwork.LoadLevel(3);
+        
+    }
+    
 }

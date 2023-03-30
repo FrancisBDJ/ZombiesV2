@@ -61,6 +61,9 @@ public class GameManager : MonoBehaviour
         GOverTryAgainBTN.onClick.AddListener(RestartGame);
         quitBTN.onClick.AddListener(QuitGame);
         GOverQuitBTN.onClick.AddListener(QuitGame);
+
+        spawnPoints = GameObject.FindGameObjectsWithTag("Spawners");
+        
         NextWave();
     }
 

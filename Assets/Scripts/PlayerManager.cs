@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
+using Photon.Pun;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class PlayerManager : MonoBehaviour
     public Slider Healthbar;
     public static CanvasGroup hitPanel;
     public static GameManager gameManager;
+    public PhotonView photonview;
     
     // Variable per controlar el temps de vibració de la càmera
     private static float shakeTime = 1f;
@@ -32,6 +34,12 @@ public class PlayerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (PhotonNetwork.InRoom && !photonview.IsMine)
+        {
+            playerCamera.gameObject.SetActive(false);
+            return;
+        }
+        
         Healthbar.value = health;
         if (hitPanel.alpha > 0)
         {

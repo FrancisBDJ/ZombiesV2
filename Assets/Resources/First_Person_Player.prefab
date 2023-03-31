@@ -395,7 +395,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6622591439614385667}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6622591439623239855
 GameObject:
   m_ObjectHideFlags: 0
@@ -1854,7 +1866,9 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 8979392583362836207}
+  - {fileID: 2953100464157982734}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0

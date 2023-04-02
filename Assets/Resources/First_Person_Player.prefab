@@ -226,8 +226,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  enemyPrefab: {fileID: 6111779744191134550, guid: f667392957bc3824f9c8cf3036c48be2,
-    type: 3}
   roundTXT: {fileID: 6622591440605512969}
   zombiesTXT: {fileID: 6622591440010204580}
   pausePanel: {fileID: 6622591440122711978}
@@ -240,6 +238,7 @@ MonoBehaviour:
   lastRoundTXT: {fileID: 6622591440631249988}
   fadeAnim: {fileID: 6622591441113922825}
   GOverPanel: {fileID: 6622591439884221598}
+  photonview: {fileID: 0}
 --- !u!1 &6622591439578618480
 GameObject:
   m_ObjectHideFlags: 0
@@ -546,6 +545,7 @@ MonoBehaviour:
   flashParticleSystem: {fileID: 694703524105452029}
   bloodParticleSystem: {fileID: 9002084744719208756, guid: ec546c12fbcd2cc48a4abee97f55e0d7,
     type: 3}
+  gameManager: {fileID: 6622591439539992034}
 --- !u!82 &5108048723060914984
 AudioSource:
   m_ObjectHideFlags: 0
@@ -602,7 +602,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -4343,6 +4343,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   photonview: {fileID: 3770560658654688648}
   _playerTransform: {fileID: 6622591440235233815}
+  gameManager: {fileID: 6622591439539992034}
 --- !u!114 &5890350049192590927
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4357,7 +4358,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerCamera: {fileID: 6622591440461108069}
   Healthbar: {fileID: 6622591440703499169}
-  photonview: {fileID: 3770560658654688648}
+  activeWeapon: {fileID: 6622591439665285399}
 --- !u!114 &8979392583362836207
 MonoBehaviour:
   m_ObjectHideFlags: 0

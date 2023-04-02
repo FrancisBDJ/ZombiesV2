@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -29,11 +30,14 @@ public class EnemyManager : MonoBehaviour
      public float minWaitBetweenPlays = 1f;
      public float maxWaitBetweenPlays = 5f;
      public float waitTimeCountdown = -1f;
-     
+     // Players
+     private GameObject[] playersInScene;
+
+     public PhotonView photonView;
      
      void Start()
-    {
-        player = GameObject.FindGameObjectWithTag("Player");
+     {
+         playersInScene = GameObject.FindGameObjectsWithTag("Player");
         gameManager = FindObjectOfType<GameManager>();
         zombieAudioSource = this.gameObject.GetComponent<AudioSource>();
         ZombieAudioClips = new AudioClip[3]{ Zombie1AudioClip, Zombie2AudioClip, Zombie3AudioClip };
@@ -45,11 +49,25 @@ public class EnemyManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Accedim al component NavMeshComponent, el qual té un element que es destination de tipus Vector3
-        // Li podem assignar la posició del jugador, que el tenim a la variable player gràcies al seu tranform
-        GetComponent<NavMeshAgent>().destination = player.transform.position;
+        
         
         ZombieMoan();
+        if (PhotonNetwork.InRoom && PhotonNetwork.IsMasterClient)
+        {
+            return;
+        }
+        
+        GetClosestPlayer();
+        if (player != null)
+        {
+            // Accedim al component NavMeshComponent, el qual té un element que es destination de tipus Vector3
+            // Li podem assignar la posició del jugador, que el tenim a la variable player gràcies al seu tranform
+            GetComponent<NavMeshAgent>().destination = player.transform.position;
+            
+            //Per veure de front la barra de viada del Zombie
+            healthBar.transform.LookAt(player.transform);
+        }
+        
         if (GetComponent<NavMeshAgent>().velocity.magnitude > 1)
         {
             enemyAnimator.SetBool("IsRunning", true);
@@ -105,26 +123,39 @@ public class EnemyManager : MonoBehaviour
 
     public void Hit(float damage)
     {
-        health -= damage;
-        healthBar.value = health;
-        Debug.Log(health);
-        ZombieMoan();
-        if (health <= 0)
+        photonView.RPC("TakeDamage",RpcTarget.All,damage,photonView.ViewID);
+
+    }
+    
+    [PunRPC]
+    public void TakeDamage(float damage, int viewID)
+    {
+        if (photonView.ViewID == viewID)
         {
-            // Destrium a l'enemic quan la seva salut arriba a zero
-            // feim referència a ell amb la variable gameObject, que fa referència al GO
-            // que conté el componentn EnemyManager
-            gameManager.enemiesAlive --;
-            //Destroy(gameObject);
-            enemyAnimator.SetTrigger("IsDead");
+            health -= damage;
+            healthBar.value = health;
+            Debug.Log(health);
             ZombieMoan();
-            Destroy(gameObject,10f);
-            Destroy(GetComponent<NavMeshAgent>());
-            Destroy(GetComponent<EnemyManager>());
-            Destroy(GetComponent<CapsuleCollider>());
+            if (health <= 0)
+            {
+                // Destrium a l'enemic quan la seva salut arriba a zero
+                // feim referència a ell amb la variable gameObject, que fa referència al GO
+                // que conté el componentn EnemyManager
+                //Destroy(gameObject);
+                enemyAnimator.SetTrigger("IsDead");
+                ZombieMoan();
+                Destroy(gameObject,10f);
+                Destroy(GetComponent<NavMeshAgent>());
+                Destroy(GetComponent<EnemyManager>());
+                Destroy(GetComponent<CapsuleCollider>());
 
+                if (!PhotonNetwork.InRoom || (PhotonNetwork.IsMasterClient && photonView.IsMine))
+                {
+                    gameManager.enemiesAlive --;
+                }
+
+            }
         }
-
     }
 
     public void ZombieMoan()
@@ -141,6 +172,25 @@ public class EnemyManager : MonoBehaviour
             else
             {
                 waitTimeCountdown -= Time.deltaTime;
+            }
+        }
+    }
+
+    private void GetClosestPlayer()
+    {
+        float minDistance = Mathf.Infinity;
+        Vector3 currentPosition = transform.position;
+
+        foreach (GameObject p in playersInScene)
+        {
+            if (p != null)
+            {
+                float distance = Vector3.Distance(p.transform.position, currentPosition);
+                if (distance < minDistance)
+                {
+                    player = p;
+                    minDistance = distance;
+                }
             }
         }
     }

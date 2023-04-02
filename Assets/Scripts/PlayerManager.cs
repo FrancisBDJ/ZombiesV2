@@ -16,8 +16,9 @@ public class PlayerManager : MonoBehaviour
     public Slider Healthbar;
     public static CanvasGroup hitPanel;
     public static GameManager gameManager;
-    public PhotonView photonview;
-    
+    public static PhotonView photonView;
+
+    public GameObject activeWeapon; 
     // Variable per controlar el temps de vibració de la càmera
     private static float shakeTime = 1f;
     private float shakeDuration = 0.5f;
@@ -34,7 +35,7 @@ public class PlayerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (PhotonNetwork.InRoom && !photonview.IsMine)
+        if (PhotonNetwork.InRoom && !photonView.IsMine)
         {
             playerCamera.gameObject.SetActive(false);
             return;
@@ -59,15 +60,31 @@ public class PlayerManager : MonoBehaviour
     
     public static void Hit(float damage)
     {
-        health -= damage;
-        hitPanel.alpha = 1;
-        if (health <= 0)
+        if (PhotonNetwork.InRoom)
         {
-            gameManager.GameOver();
+            photonView.RPC("PlayerTakeDamage", RpcTarget.All, damage, photonView.ViewID);
         }
         else
         {
-            shakeTime = 0;
+            PlayerTakeDamage(damage, photonView.ViewID);
+        }
+    }
+
+    [PunRPC]
+    public static void PlayerTakeDamage(float damage, int viewID)
+    {
+        if (photonView.ViewID == viewID)
+        {
+            health -= damage;
+            if (health <= 0)
+            {
+                gameManager.GameOver();
+            }
+            else
+            {
+                shakeTime = 0;
+                hitPanel.alpha = 1;
+            }
         }
     }
     
@@ -76,6 +93,10 @@ public class PlayerManager : MonoBehaviour
     {
         playerCamera.transform.localRotation = Quaternion.Euler(Random.Range(-2f, 2f), 0, 0);
     }
-    
-    
+
+    [PunRPC]
+    public void WeaponShootSFX(int viewID)
+    {
+        activeWeapon.GetComponent<WeaponManager>().ShootVFX(viewID);
+    }
 }

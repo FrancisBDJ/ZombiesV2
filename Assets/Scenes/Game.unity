@@ -169,8 +169,6 @@ MonoBehaviour:
   - {fileID: 2038975344}
   - {fileID: 528953049}
   - {fileID: 630866901}
-  enemyPrefab: {fileID: 6111779744191134550, guid: f667392957bc3824f9c8cf3036c48be2,
-    type: 3}
   roundTXT: {fileID: 1077203412}
   zombiesTXT: {fileID: 666403193}
   pausePanel: {fileID: 753916791}
@@ -183,6 +181,7 @@ MonoBehaviour:
   lastRoundTXT: {fileID: 1119840409}
   fadeAnim: {fileID: 1640131028}
   GOverPanel: {fileID: 523642947}
+  photonview: {fileID: 0}
 --- !u!4 &62103872
 Transform:
   m_ObjectHideFlags: 0
@@ -5867,6 +5866,11 @@ PrefabInstance:
         type: 3}
       propertyPath: range
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 9176962077657654897, guid: a706bccaf129ff848a46d4a536be94ab,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9176962077657654897, guid: a706bccaf129ff848a46d4a536be94ab,
         type: 3}

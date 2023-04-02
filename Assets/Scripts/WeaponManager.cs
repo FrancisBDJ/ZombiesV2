@@ -15,9 +15,9 @@ public class WeaponManager : MonoBehaviour
     public GameObject bloodParticleSystem;
     // Audio Weapon
     private AudioSource _weaponAudioSource;
-    
-    
+    public GameManager gameManager;
 
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -33,7 +33,7 @@ public class WeaponManager : MonoBehaviour
             return;
         }
         
-        if (GameManager.sharedInstance.isPaused != true &&GameManager.sharedInstance.isDead != true)
+        if (!gameManager.isPaused && !gameManager.isDead)
         {
             if(playerAnimator.GetBool("isShooting"))
             {
@@ -47,10 +47,18 @@ public class WeaponManager : MonoBehaviour
     }
     private void Shoot()
     {
-        _weaponAudioSource.Play();
+        if (PhotonNetwork.InRoom)
+        {
+            photonview.RPC("WeaponShootSFX",RpcTarget.All, photonview.ViewID);
+        }
+        else
+        {
+            ShootVFX(photonview.ViewID);
+        }
+        
         playerAnimator.SetBool("isShooting", true);
         Debug.Log((playerAnimator.GetBool("isShooting")));
-        flashParticleSystem.Play();
+        
         RaycastHit hit;
         if (Physics.Raycast(playerCam.transform.position, transform.forward, out hit, range))
         {
@@ -71,6 +79,15 @@ public class WeaponManager : MonoBehaviour
                 enemyManager.Hit(damage);
             }
 
+        }
+    }
+
+    public void ShootVFX(int viewID)
+    {
+        if (photonview.ViewID == viewID)
+        {
+            flashParticleSystem.Play();
+            _weaponAudioSource.Play();
         }
     }
 }

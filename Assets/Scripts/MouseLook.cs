@@ -12,6 +12,7 @@ public class MouseLook : MonoBehaviour
     public PhotonView photonview;
 
     [SerializeField]private Transform _playerTransform;
+    public GameManager gameManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,7 +27,7 @@ public class MouseLook : MonoBehaviour
             return;
         }
 
-        if (GameManager.sharedInstance.isPaused != true &&GameManager.sharedInstance.isDead != true)
+        if (!gameManager.isPaused  && !gameManager.isDead)
         {
             float rotateHorizontal = Input.GetAxis("Mouse X");
             float rotateVertical = Input.GetAxis("Mouse Y");

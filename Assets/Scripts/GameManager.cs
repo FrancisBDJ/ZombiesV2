@@ -130,7 +130,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         enemiesAlive = enemiesPerRound;
     }
     
-    public static void RestartGame()
+    public void RestartGame()
     {
         if (!PhotonNetwork.InRoom)
         {

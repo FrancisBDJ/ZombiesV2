@@ -58,7 +58,7 @@ public class PlayerManager : MonoBehaviour
 
     }
     
-    public static void Hit(float damage)
+    public void Hit(float damage)
     {
         if (PhotonNetwork.InRoom)
         {
@@ -71,7 +71,7 @@ public class PlayerManager : MonoBehaviour
     }
 
     [PunRPC]
-    public static void PlayerTakeDamage(float damage, int viewID)
+    public void PlayerTakeDamage(float damage, int viewID)
     {
         if (photonView.ViewID == viewID)
         {

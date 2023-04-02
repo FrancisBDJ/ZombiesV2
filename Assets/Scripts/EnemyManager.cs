@@ -13,7 +13,8 @@ public class EnemyManager : MonoBehaviour
      [SerializeField] private Animator enemyAnimator;
      // Salut de l'enemic
      public float health = 100f;
-     [SerializeField]private GameManager gameManager;
+     public GameManager gameManager;
+     public PlayerManager playerManager;
      public Slider healthBar;
      // Animacio i millora del xoc
      public bool playerInReach;
@@ -37,14 +38,15 @@ public class EnemyManager : MonoBehaviour
      
      void Start()
      {
-         playersInScene = GameObject.FindGameObjectsWithTag("Player");
+        playersInScene = GameObject.FindGameObjectsWithTag("Player");
+        player = GameObject.FindWithTag("Player");
         gameManager = FindObjectOfType<GameManager>();
         zombieAudioSource = this.gameObject.GetComponent<AudioSource>();
         ZombieAudioClips = new AudioClip[3]{ Zombie1AudioClip, Zombie2AudioClip, Zombie3AudioClip };
         healthBar.maxValue = health;
         healthBar.value = health;
-        
-    }
+        playerManager = player.GetComponentInChildren<PlayerManager>();
+     }
 
     // Update is called once per frame
     void Update()
@@ -104,7 +106,7 @@ public class EnemyManager : MonoBehaviour
             }
             if(attackDelayTimer >= delayBetweenAttacks)
             {
-                PlayerManager.Hit(damage);
+                playerManager.Hit(damage);
                 attackDelayTimer = 0;
             }
         }
@@ -191,6 +193,10 @@ public class EnemyManager : MonoBehaviour
                     player = p;
                     minDistance = distance;
                 }
+            }
+            else
+            {
+                player = GameObject.FindWithTag("Player");
             }
         }
     }

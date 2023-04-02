@@ -27,12 +27,12 @@ public class MainMenuManager : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene("Game");
     }
 
     public void LoadMultiplayerMenu()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene("MultiplayerMenu");
     }
 
     public void QuitGame()

@@ -238,7 +238,7 @@ MonoBehaviour:
   lastRoundTXT: {fileID: 6622591440631249988}
   fadeAnim: {fileID: 6622591441113922825}
   GOverPanel: {fileID: 6622591439884221598}
-  photonview: {fileID: 0}
+  photonview: {fileID: 3770560658654688648}
 --- !u!1 &6622591439578618480
 GameObject:
   m_ObjectHideFlags: 0

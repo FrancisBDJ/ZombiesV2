@@ -124,8 +124,14 @@ public class EnemyManager : MonoBehaviour
 
     public void Hit(float damage)
     {
-        photonView.RPC("TakeDamage",RpcTarget.All,damage,photonView.ViewID);
-
+        if (PhotonNetwork.InRoom)
+        {
+            photonView.RPC("TakeDamage", RpcTarget.All, damage, photonView.ViewID);
+        }
+        else
+        {
+            TakeDamage(damage, photonView.ViewID );
+        }
     }
     
     [PunRPC]

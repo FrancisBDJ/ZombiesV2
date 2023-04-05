@@ -14,7 +14,7 @@ public class WeaponManager : MonoBehaviour
     public ParticleSystem flashParticleSystem;
     public GameObject bloodParticleSystem;
     // Audio Weapon
-    private AudioSource _weaponAudioSource;
+    public AudioSource _weaponAudioSource;
     public GameManager gameManager;
 
     
@@ -50,10 +50,12 @@ public class WeaponManager : MonoBehaviour
         Debug.Log("no hago animacion ni sonido");
         if (PhotonNetwork.InRoom)
         {
+            Debug.Log("este");
             photonview.RPC("WeaponShootSFX",RpcTarget.All, photonview.ViewID);
         }
         else
         {
+            Debug.Log("este otro");
             ShootVFX(photonview.ViewID);
         }
         
@@ -91,4 +93,6 @@ public class WeaponManager : MonoBehaviour
             _weaponAudioSource.Play();
         }
     }
+    
+    
 }

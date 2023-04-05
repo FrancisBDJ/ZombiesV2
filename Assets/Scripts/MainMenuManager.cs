@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEditor;
+using UnityEditor.Networking.PlayerConnection;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
@@ -27,6 +29,10 @@ public class MainMenuManager : MonoBehaviour
 
     public void StartGame()
     {
+        if (SceneManager.GetActiveScene() != SceneManager.GetSceneByName("MultiplayerMenu"))
+        {
+            PhotonNetwork.OfflineMode = true;
+        }
         SceneManager.LoadScene("GameOnline");
     }
 

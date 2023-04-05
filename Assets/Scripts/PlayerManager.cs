@@ -35,7 +35,6 @@ public class PlayerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("no funciono desde aqui");
         if (PhotonNetwork.InRoom && !photonView.IsMine)
         {
             playerCamera.gameObject.SetActive(false);

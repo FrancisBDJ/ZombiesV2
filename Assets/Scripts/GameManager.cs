@@ -11,6 +11,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 using Photon.Realtime;
+using AudioListener = UnityEngine.AudioListener;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class GameManager : MonoBehaviourPunCallbacks
@@ -34,7 +35,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public TextMeshProUGUI  lastRoundTXT;
     public Animator fadeAnim;
     public GameObject GOverPanel;
-
+    [SerializeField] private AudioListener _audioListener;
     public PhotonView photonview;
 
     // Start is called before the first frame update
@@ -55,7 +56,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         enemiesAlive = 0;
         spawnPoints = GameObject.FindGameObjectsWithTag("Spawners");
         
-        
+
     }
 
     // Update is called once per frame
@@ -151,8 +152,10 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (!PhotonNetwork.InRoom)
         {
             Time.timeScale = 1;
+            round = 0;
             SceneManager.LoadScene("MultiplayerMenu");
         }
+        round = 0;
         SceneManager.LoadScene("MainMenu");
     }
 
@@ -193,6 +196,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public void LoadMainMenu()
     {
+        round = 0;
         SceneManager.LoadScene("MainMenu");
     }
 

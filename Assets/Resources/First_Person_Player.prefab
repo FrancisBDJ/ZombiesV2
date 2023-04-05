@@ -238,6 +238,7 @@ MonoBehaviour:
   lastRoundTXT: {fileID: 6622591440631249988}
   fadeAnim: {fileID: 6622591441113922825}
   GOverPanel: {fileID: 6622591439884221598}
+  _audioListener: {fileID: 6622591440461108065}
   photonview: {fileID: 3770560658654688648}
 --- !u!1 &6622591439578618480
 GameObject:
@@ -545,6 +546,7 @@ MonoBehaviour:
   flashParticleSystem: {fileID: 694703524105452029}
   bloodParticleSystem: {fileID: 9002084744719208756, guid: ec546c12fbcd2cc48a4abee97f55e0d7,
     type: 3}
+  _weaponAudioSource: {fileID: 0}
   gameManager: {fileID: 6622591439539992034}
 --- !u!82 &5108048723060914984
 AudioSource:

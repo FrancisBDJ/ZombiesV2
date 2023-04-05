@@ -62,7 +62,7 @@ public class PlayerMovement : MonoBehaviour
         {
             playerVelocity.y = Mathf.Sqrt(jumpHeight * -2.0f * gravity);
         }
-        if (Input.GetButtonDown("Fire3") && isGrounded)
+        if (Input.GetButton("Fire3") && isGrounded)
         {
             playerSpeed = runSpeed;
         }

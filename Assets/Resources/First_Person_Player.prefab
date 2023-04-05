@@ -1766,6 +1766,7 @@ GameObject:
   - component: {fileID: 6622591440235233813}
   - component: {fileID: 1243645673156082440}
   - component: {fileID: 3770560658654688648}
+  - component: {fileID: 7064549435302373885}
   m_Layer: 0
   m_Name: First_Person_Player
   m_TagString: Player
@@ -1872,6 +1873,25 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &7064549435302373885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6622591440235233818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cf0d8d36ffd80246b1dfe58f9bea216, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 0
+  playerCamera: {fileID: 6622591440461108069}
+  Healthbar: {fileID: 6622591440703499169}
+  hitPanel: {fileID: 6622591440141857467}
+  gameManager: {fileID: 6622591439539992034}
+  photonView: {fileID: 3770560658654688648}
+  activeWeapon: {fileID: 6622591439665285399}
 --- !u!1 &6622591440262443579
 GameObject:
   m_ObjectHideFlags: 0
@@ -4281,7 +4301,6 @@ GameObject:
   - component: {fileID: 6622591441189680996}
   - component: {fileID: 6622591441189680998}
   - component: {fileID: 6622591441189680999}
-  - component: {fileID: 5890350049192590927}
   - component: {fileID: 8979392583362836207}
   - component: {fileID: 2953100464157982734}
   m_Layer: 0
@@ -4344,21 +4363,6 @@ MonoBehaviour:
   photonview: {fileID: 3770560658654688648}
   _playerTransform: {fileID: 6622591440235233815}
   gameManager: {fileID: 6622591439539992034}
---- !u!114 &5890350049192590927
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6622591441189680997}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cf0d8d36ffd80246b1dfe58f9bea216, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerCamera: {fileID: 6622591440461108069}
-  Healthbar: {fileID: 6622591440703499169}
-  activeWeapon: {fileID: 6622591439665285399}
 --- !u!114 &8979392583362836207
 MonoBehaviour:
   m_ObjectHideFlags: 0

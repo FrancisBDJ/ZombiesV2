@@ -11,12 +11,12 @@ using Photon.Pun;
 
 public class PlayerManager : MonoBehaviour
 {
-    public static float health;
+    public float health;
     public GameObject playerCamera;
     public Slider Healthbar;
-    public static CanvasGroup hitPanel;
-    public static GameManager gameManager;
-    public static PhotonView photonView;
+    public CanvasGroup hitPanel;
+    public GameManager gameManager;
+    public PhotonView photonView;
 
     public GameObject activeWeapon; 
     // Variable per controlar el temps de vibració de la càmera
@@ -35,6 +35,7 @@ public class PlayerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log("no funciono desde aqui");
         if (PhotonNetwork.InRoom && !photonView.IsMine)
         {
             playerCamera.gameObject.SetActive(false);

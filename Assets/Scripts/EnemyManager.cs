@@ -54,11 +54,10 @@ public class EnemyManager : MonoBehaviour
         
         
         ZombieMoan();
-        if (PhotonNetwork.InRoom && PhotonNetwork.IsMasterClient)
+        if (PhotonNetwork.InRoom && !PhotonNetwork.IsMasterClient)
         {
             return;
         }
-        
         GetClosestPlayer();
         if (player != null)
         {
@@ -88,7 +87,7 @@ public class EnemyManager : MonoBehaviour
         {
             Debug.Log("L'enemic m'ataca!!");
             //PlayerManager.Hit(damage);
-            Debug.Log(PlayerManager.health);
+            Debug.Log(playerManager.health);
             playerInReach = true;
         }
     }
@@ -180,6 +179,7 @@ public class EnemyManager : MonoBehaviour
 
     private void GetClosestPlayer()
     {
+       
         float minDistance = Mathf.Infinity;
         Vector3 currentPosition = transform.position;
 

@@ -14,9 +14,9 @@ public class MainMenuManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        startBtn.onClick.AddListener(StartGame);
-        quitBtn.onClick.AddListener(QuitGame);
-        mpBtn.onClick.AddListener(LoadMultiplayerMenu);
+        //startBtn.onClick.AddListener(StartGame);
+        //quitBtn.onClick.AddListener(QuitGame);
+        //mpBtn.onClick.AddListener(LoadMultiplayerMenu);
     }
 
     // Update is called once per frame
@@ -27,7 +27,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene("Game");
+        SceneManager.LoadScene("GameOnline");
     }
 
     public void LoadMultiplayerMenu()

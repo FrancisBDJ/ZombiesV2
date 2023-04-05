@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         GOverTryAgainBTN.onClick.AddListener(RestartGame);
         quitBTN.onClick.AddListener(QuitGame);
         GOverQuitBTN.onClick.AddListener(QuitGame);
-
+        enemiesAlive = 0;
         spawnPoints = GameObject.FindGameObjectsWithTag("Spawners");
         
         
@@ -112,19 +112,23 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         enemiesPerRound++;
         
-        for (int i = 0; i < enemiesPerRound; i++)
+        for (int i = 0; i < round; i++)
         {
             GameObject spawnPoint = spawnPoints[Random.Range( 0, 4)];
             GameObject enemyInstance;
             if (PhotonNetwork.InRoom)
             {
+                Debug.Log("photoninroom");
                 enemyInstance = PhotonNetwork.Instantiate("Zombie", spawnPoint.transform.position, Quaternion.identity);
             }
             else
             {
+                Debug.Log("photonNOinroom");
                 enemyInstance = Instantiate(Resources.Load("Zombie"), spawnPoint.transform.position, Quaternion.identity) as GameObject;
             }
-            
+
+            enemyInstance.GetComponent<EnemyManager>().gameManager = GetComponent<GameManager>();
+            enemiesAlive++;
         }
 
         enemiesAlive = enemiesPerRound;
@@ -136,6 +140,9 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             Time.timeScale = 1;
         }
+
+        round = 0;
+        
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 

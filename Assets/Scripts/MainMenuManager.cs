@@ -10,15 +10,13 @@ using UnityEngine.UI;
 
 public class MainMenuManager : MonoBehaviour
 {
-    public Button startBtn;
-    public Button mpBtn;
-    public Button quitBtn;
+    public AudioListener audioListener;
+   
     // Start is called before the first frame update
     void Start()
     {
-        //startBtn.onClick.AddListener(StartGame);
-        //quitBtn.onClick.AddListener(QuitGame);
-        //mpBtn.onClick.AddListener(LoadMultiplayerMenu);
+        audioListener = FindObjectOfType<Camera>().GetComponent<AudioListener>();
+
     }
 
     // Update is called once per frame
@@ -39,6 +37,12 @@ public class MainMenuManager : MonoBehaviour
     public void LoadMultiplayerMenu()
     {
         SceneManager.LoadScene("MultiplayerMenu");
+    }
+
+    public void LoadMainMenu()
+    {
+        PhotonNetwork.Disconnect();
+        SceneManager.LoadScene("MainMenu");
     }
 
     public void QuitGame()

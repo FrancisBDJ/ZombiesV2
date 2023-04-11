@@ -17,10 +17,21 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
+        if (PhotonNetwork.IsConnected)
+        {
+            StartCoroutine(DisconnectPlayer());
+        }
         Debug.Log("Connecting to Server");
         PhotonNetwork.ConnectUsingSettings();
     }
 
+    IEnumerator DisconnectPlayer()
+    {
+        PhotonNetwork.LeaveRoom();
+        PhotonNetwork.Disconnect();
+        while (PhotonNetwork.IsConnected)
+            yield return null;
+    }
     // Update is called once per frame
     void Update()
     {
@@ -69,7 +80,7 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         Debug.Log($"Loading Multiplayer Scene");
-        PhotonNetwork.LoadLevel(3);
+        PhotonNetwork.LoadLevel("GameOnline");
         
     }
     

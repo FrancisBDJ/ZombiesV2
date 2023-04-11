@@ -149,14 +149,17 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public void BackToMainMenu()
     {
-        if (!PhotonNetwork.InRoom)
+        if (PhotonNetwork.InRoom)
         {
             Time.timeScale = 1;
             round = 0;
             SceneManager.LoadScene("MultiplayerMenu");
         }
-        round = 0;
-        SceneManager.LoadScene("MainMenu");
+        else
+        {
+            round = 0;
+            SceneManager.LoadScene("MainMenu");
+        }
     }
 
     public void Pause()

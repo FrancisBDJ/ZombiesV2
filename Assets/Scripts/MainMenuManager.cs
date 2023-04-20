@@ -16,7 +16,7 @@ public class MainMenuManager : MonoBehaviour
     void Start()
     {
         audioListener = FindObjectOfType<Camera>().GetComponent<AudioListener>();
-
+        AudioListener.volume = 1;
     }
 
     // Update is called once per frame

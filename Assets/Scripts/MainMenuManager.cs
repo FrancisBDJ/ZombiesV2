@@ -27,10 +27,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void StartGame()
     {
-        if (SceneManager.GetActiveScene() != SceneManager.GetSceneByName("MultiplayerMenu"))
-        {
-            PhotonNetwork.OfflineMode = true;
-        }
+        
         SceneManager.LoadScene("GameOnline");
     }
 

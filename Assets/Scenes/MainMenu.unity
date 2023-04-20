@@ -746,9 +746,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17261b9b410439e44b1bf346dec6fa60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startBtn: {fileID: 414621297}
-  mpBtn: {fileID: 523455119}
-  quitBtn: {fileID: 1435385618}
+  audioListener: {fileID: 1975009780}
 --- !u!4 &1550069024
 Transform:
   m_ObjectHideFlags: 0

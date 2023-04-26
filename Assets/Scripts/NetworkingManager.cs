@@ -17,6 +17,7 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
+        Time.timeScale = 1;
         if (PhotonNetwork.IsConnected)
         {
             StartCoroutine(DisconnectPlayer());

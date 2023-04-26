@@ -119,12 +119,10 @@ public class GameManager : MonoBehaviourPunCallbacks
             GameObject enemyInstance;
             if (PhotonNetwork.InRoom)
             {
-                Debug.Log("photoninroom");
                 enemyInstance = PhotonNetwork.Instantiate("Zombie", spawnPoint.transform.position, Quaternion.identity);
             }
             else
             {
-                Debug.Log("photonNOinroom");
                 enemyInstance = Instantiate(Resources.Load("Zombie"), spawnPoint.transform.position, Quaternion.identity) as GameObject;
             }
 

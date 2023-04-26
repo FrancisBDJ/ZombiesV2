@@ -47,15 +47,13 @@ public class WeaponManager : MonoBehaviour
     }
     private void Shoot()
     {
-        Debug.Log("no hago animacion ni sonido");
+        
         if (PhotonNetwork.InRoom)
         {
-            Debug.Log("este");
             photonview.RPC("WeaponShootSFX",RpcTarget.All, photonview.ViewID);
         }
         else
         {
-            Debug.Log("este otro");
             ShootVFX(photonview.ViewID);
         }
         

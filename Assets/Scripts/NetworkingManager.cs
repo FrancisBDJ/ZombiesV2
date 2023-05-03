@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
 using Photon.Realtime;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -13,7 +14,13 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
 {
     public Button playMpButton;
     public Button backButton;
-
+    [SerializeField] private InputField _playerNameInput;
+    public Button createPlayer;
+    public TextMeshPro playerCurrentAlias;
+    public GameObject playerPanel;
+    [SerializeField] private InputField _roomInput;
+    public GameObject roomPanel;
+    public GameObject roomListPanel;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,7 +30,24 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
             StartCoroutine(DisconnectPlayer());
         }
         Debug.Log("Connecting to Server");
+       
+    }
+
+    public void NewAlias()
+    {
+        if (_playerNameInput.text != null)
+        {
+            PhotonNetwork.NickName = "_playerNameInput.text";
+            playerCurrentAlias.text = $"Player: {_playerNameInput.text}";
+            Connect();
+        }
+    }
+
+    private void Connect()
+    {
+        playerPanel.SetActive(false);
         PhotonNetwork.ConnectUsingSettings();
+        PhotonNetwork.AutomaticallySyncScene = true;
     }
 
     IEnumerator DisconnectPlayer()
@@ -47,11 +71,12 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinedLobby()
     {
-        Debug.Log("Ready to Play Multiplayer");
-        playMpButton.interactable = true;
+        roomListPanel.SetActive(true);
+        //Debug.Log("Ready to Play Multiplayer");
+        //playMpButton.interactable = true;
     }
 
-    public void FindMatch()
+    /*public void FindMatch()
     {
         Debug.Log("Searching Room...");
         PhotonNetwork.JoinRandomRoom();
@@ -76,7 +101,7 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
 
         PhotonNetwork.CreateRoom($"RoomName_{randomRoomName}", roomOptions);
         Debug.Log($"Created Room {randomRoomName}");
-    }
+    }*/
 
     public override void OnJoinedRoom()
     {

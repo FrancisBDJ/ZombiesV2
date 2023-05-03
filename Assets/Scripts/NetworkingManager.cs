@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
+using Photon.Pun.Demo.Cockpit;
 using Photon.Realtime;
 using TMPro;
 using UnityEngine;
@@ -14,13 +15,17 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
 {
     public Button playMpButton;
     public Button backButton;
-    [SerializeField] private InputField _playerNameInput;
+    [SerializeField] private TMP_InputField _playerNameInput;
     public Button createPlayer;
-    public TextMeshPro playerCurrentAlias;
-    public GameObject playerPanel;
-    [SerializeField] private InputField _roomInput;
+    public TMP_Text playerCurrentAlias;
+    public GameObject playerInputPanel;
+    [SerializeField] private TMP_InputField _roomInput;
     public GameObject roomPanel;
+    public TMP_Text roomPanelRoomName;
     public GameObject roomListPanel;
+    private List<RoomItem> roomItemsList = new List<RoomItem>();
+    public Transform contentObject;
+    public RoomItem RoomItemPrefab;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,7 +34,7 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
         {
             StartCoroutine(DisconnectPlayer());
         }
-        Debug.Log("Connecting to Server");
+        
        
     }
 
@@ -45,7 +50,8 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
 
     private void Connect()
     {
-        playerPanel.SetActive(false);
+        Debug.Log("Connecting to Server");
+        playerInputPanel.SetActive(false);
         PhotonNetwork.ConnectUsingSettings();
         PhotonNetwork.AutomaticallySyncScene = true;
     }
@@ -65,12 +71,14 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
 
     public override void OnConnectedToMaster()
     {
-        Debug.Log("Join a Lobby");
+        Debug.Log("Connected to  Master Server");
+        Debug.Log("Joinning a Lobby");
         PhotonNetwork.JoinLobby();
     }
 
     public override void OnJoinedLobby()
     {
+        Debug.Log("Joined Lobby");
         roomListPanel.SetActive(true);
         //Debug.Log("Ready to Play Multiplayer");
         //playMpButton.interactable = true;
@@ -85,29 +93,53 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
         MakeRoom();
-    }
+    }*/
 
-    private void MakeRoom()
+    public void MakeRoom()
     {
-        int randomRoomName = Random.Range(0, 5000);
-
+        var roomName = _roomInput;
         RoomOptions roomOptions = new RoomOptions()
         {
             IsVisible = true,
             IsOpen = true,
-            MaxPlayers = 6,
+            MaxPlayers = 5,
             PublishUserId = true
         };
 
-        PhotonNetwork.CreateRoom($"RoomName_{randomRoomName}", roomOptions);
-        Debug.Log($"Created Room {randomRoomName}");
-    }*/
+        PhotonNetwork.CreateRoom($"RoomName_{roomName}", roomOptions);
+        Debug.Log($"Created Room {roomName}");
+    }
+
+    public override void OnRoomListUpdate(List<RoomInfo> roomList)
+    {
+        UpdateRoomList(roomList);
+    }
+
+    private void UpdateRoomList(List<RoomInfo> list)
+    {
+        foreach (RoomItem item in roomItemsList)
+        {
+            Destroy(item.gameObject);
+        }
+        roomItemsList.Clear();
+
+        foreach (RoomInfo room in list)
+        {
+            RoomItem newRoom = Instantiate(RoomItemPrefab, contentObject);
+            newRoom.SetRoomName(room.Name);
+            roomItemsList.Add(newRoom);
+        }
+    }
 
     public override void OnJoinedRoom()
     {
-        Debug.Log($"Loading Multiplayer Scene");
-        PhotonNetwork.LoadLevel("GameOnline");
-        
+        Debug.Log($"Joined Room: {PhotonNetwork.CurrentRoom.Name}");
+        roomPanel.SetActive(true);
+        roomPanelRoomName.text = $"Room: {PhotonNetwork.CurrentRoom.Name}";
+
+        //Debug.Log($"Loading Multiplayer Scene");
+        //PhotonNetwork.LoadLevel("GameOnline");
+
     }
     
 }

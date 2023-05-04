@@ -16,7 +16,7 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
     public Button playMpButton;
     public Button backButton;
     [SerializeField] private TMP_InputField _playerNameInput;
-    public Button createPlayer;
+    public Button createPlayerButton;
     public TMP_Text playerCurrentAlias;
     public GameObject playerInputPanel;
     [SerializeField] private TMP_InputField _roomInput;
@@ -26,6 +26,7 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
     private List<RoomItem> roomItemsList = new List<RoomItem>();
     public Transform contentObject;
     public RoomItem RoomItemPrefab;
+    public Button leaveRoomButton;
     // Start is called before the first frame update
     void Start()
     {
@@ -97,7 +98,7 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
 
     public void MakeRoom()
     {
-        var roomName = _roomInput;
+        string roomName = _roomInput.text;
         RoomOptions roomOptions = new RoomOptions()
         {
             IsVisible = true,
@@ -106,7 +107,7 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
             PublishUserId = true
         };
 
-        PhotonNetwork.CreateRoom($"RoomName_{roomName}", roomOptions);
+        PhotonNetwork.CreateRoom($"{roomName}", roomOptions);
         Debug.Log($"Created Room {roomName}");
     }
 
@@ -134,12 +135,19 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         Debug.Log($"Joined Room: {PhotonNetwork.CurrentRoom.Name}");
+        roomListPanel.SetActive(false);
         roomPanel.SetActive(true);
         roomPanelRoomName.text = $"Room: {PhotonNetwork.CurrentRoom.Name}";
-
         //Debug.Log($"Loading Multiplayer Scene");
         //PhotonNetwork.LoadLevel("GameOnline");
+    }
 
+    public void LeaveRoomButton()
+    {
+        Debug.Log($"Leaving Room: {PhotonNetwork.CurrentRoom.Name}");
+        roomPanel.SetActive(false);
+        roomListPanel.SetActive(true);
+        PhotonNetwork.LeaveRoom();
     }
     
 }

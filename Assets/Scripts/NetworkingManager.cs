@@ -27,6 +27,7 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
     public Transform contentObject;
     public RoomItem RoomItemPrefab;
     public Button leaveRoomButton;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -67,6 +68,8 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
+        
+            
         
     }
 
@@ -111,13 +114,20 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
         Debug.Log($"Created Room {roomName}");
     }
 
+    public void JoinRoom(string roomName)
+    {
+        PhotonNetwork.JoinRoom(roomName);
+    }
+
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
         UpdateRoomList(roomList);
+        
     }
 
     private void UpdateRoomList(List<RoomInfo> list)
     {
+        roomItemsList.Clear();
         foreach (RoomItem item in roomItemsList)
         {
             Destroy(item.gameObject);
@@ -141,6 +151,8 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
         //Debug.Log($"Loading Multiplayer Scene");
         //PhotonNetwork.LoadLevel("GameOnline");
     }
+
+    
 
     public void LeaveRoomButton()
     {

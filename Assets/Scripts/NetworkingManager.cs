@@ -26,6 +26,9 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
     private List<RoomItem> roomItemsList = new List<RoomItem>();
     public Transform contentObject;
     public RoomItem RoomItemPrefab;
+    private List<RoomItem> playerItemsList = new List<RoomItem>();
+    public Transform PlayerContentObject;
+    public RoomItem PlayerItemPrefab;
     public Button leaveRoomButton;
     
     // Start is called before the first frame update
@@ -127,7 +130,6 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
 
     private void UpdateRoomList(List<RoomInfo> list)
     {
-        roomItemsList.Clear();
         foreach (RoomItem item in roomItemsList)
         {
             Destroy(item.gameObject);
@@ -137,8 +139,30 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
         foreach (RoomInfo room in list)
         {
             RoomItem newRoom = Instantiate(RoomItemPrefab, contentObject);
+            newRoom.NetworkParent = this;
             newRoom.SetRoomName(room.Name);
             roomItemsList.Add(newRoom);
+        }
+    }
+
+    private void UpdatePlayerList()
+    {
+        foreach (RoomItem item in playerItemsList)
+        {
+            Destroy(item.gameObject);
+        }
+        playerItemsList.Clear();
+
+        if (PhotonNetwork.CurrentRoom == null)
+        {
+            return;
+        }
+
+        foreach (KeyValuePair<int, Player> player in PhotonNetwork.CurrentRoom.Players)
+        {
+            RoomItem newPlayerItem = Instantiate(PlayerItemPrefab, PlayerContentObject);
+            
+            playerItemsList.Add((newPlayerItem));
         }
     }
 
@@ -148,8 +172,17 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
         roomListPanel.SetActive(false);
         roomPanel.SetActive(true);
         roomPanelRoomName.text = $"Room: {PhotonNetwork.CurrentRoom.Name}";
+        UpdatePlayerList();
         //Debug.Log($"Loading Multiplayer Scene");
         //PhotonNetwork.LoadLevel("GameOnline");
+    }
+
+    public override void OnLeftRoom()
+    {
+        Debug.Log("Left Room");
+        roomPanel.SetActive(false);
+        roomListPanel.SetActive(true);
+        UpdatePlayerList();
     }
 
     
@@ -157,9 +190,18 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
     public void LeaveRoomButton()
     {
         Debug.Log($"Leaving Room: {PhotonNetwork.CurrentRoom.Name}");
-        roomPanel.SetActive(false);
-        roomListPanel.SetActive(true);
+        
         PhotonNetwork.LeaveRoom();
+    }
+
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        
+    }
+    
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        
     }
     
 }

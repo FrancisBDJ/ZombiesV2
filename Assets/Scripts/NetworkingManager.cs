@@ -47,9 +47,10 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
     {
         if (_playerNameInput.text != null)
         {
-            PhotonNetwork.NickName = "_playerNameInput.text";
-            playerCurrentAlias.text = $"Player: {_playerNameInput.text}";
             Connect();
+            PhotonNetwork.NickName = _playerNameInput.text;
+            playerCurrentAlias.text = $"Player: {_playerNameInput.text}";
+            
         }
     }
 
@@ -147,22 +148,21 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
 
     private void UpdatePlayerList()
     {
+        Debug.Log("updating player list");
         foreach (RoomItem item in playerItemsList)
         {
             Destroy(item.gameObject);
         }
         playerItemsList.Clear();
+        
 
-        if (PhotonNetwork.CurrentRoom == null)
-        {
-            return;
-        }
-
-        foreach (KeyValuePair<int, Player> player in PhotonNetwork.CurrentRoom.Players)
+        foreach ( Player player in PhotonNetwork.PlayerList)
         {
             RoomItem newPlayerItem = Instantiate(PlayerItemPrefab, PlayerContentObject);
-            
+            newPlayerItem.NetworkParent = this;
+            newPlayerItem.SetRoomName(player.NickName);
             playerItemsList.Add((newPlayerItem));
+            
         }
     }
 
@@ -173,9 +173,18 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
         roomPanel.SetActive(true);
         roomPanelRoomName.text = $"Room: {PhotonNetwork.CurrentRoom.Name}";
         UpdatePlayerList();
-        //Debug.Log($"Loading Multiplayer Scene");
-        //PhotonNetwork.LoadLevel("GameOnline");
+        Debug.Log("Ready to Play Multiplayer");
+        playMpButton.interactable = true;
+       
     }
+
+    public void PlayMP()
+    {
+        Debug.Log($"Loading Multiplayer Scene");
+        PhotonNetwork.LoadLevel("GameOnline");
+    }
+    
+    
 
     public override void OnLeftRoom()
     {
@@ -183,6 +192,7 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
         roomPanel.SetActive(false);
         roomListPanel.SetActive(true);
         UpdatePlayerList();
+        playMpButton.interactable = false;
     }
 
     
@@ -196,12 +206,12 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
-        
+        UpdatePlayerList();
     }
-    
+
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
-        
+        UpdatePlayerList();
     }
     
 }

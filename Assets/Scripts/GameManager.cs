@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using Photon.Pun;
 using TMPro;
 using Unity.Mathematics;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
@@ -189,7 +188,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public void QuitGame()
     {
 #if UNITY_EDITOR
-        EditorApplication.isPlaying = false;
+       // EditorApplication.isPlaying = false;
 #else
         Application.Quit();
 #endif

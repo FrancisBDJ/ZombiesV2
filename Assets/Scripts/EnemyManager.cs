@@ -54,10 +54,10 @@ public class EnemyManager : MonoBehaviour
         
         
         ZombieMoan();
-        if (PhotonNetwork.InRoom && !PhotonNetwork.IsMasterClient)
+        /*if (PhotonNetwork.InRoom && !PhotonNetwork.IsMasterClient)
         {
             return;
-        }
+        }*/
         GetClosestPlayer();
         if (player != null)
         {

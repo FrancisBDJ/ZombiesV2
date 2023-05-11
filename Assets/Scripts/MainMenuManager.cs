@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
-using UnityEditor;
-using UnityEditor.Networking.PlayerConnection;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
@@ -45,7 +43,7 @@ public class MainMenuManager : MonoBehaviour
     public void QuitGame()
     {
 #if UNITY_EDITOR
-        EditorApplication.isPlaying = false;
+        //EditorApplication.isPlaying = false;
 #else
         Application.Quit();
 #endif

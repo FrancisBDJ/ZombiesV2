@@ -201,12 +201,18 @@ namespace Photon.Pun
         /// <summary>
         /// Called on entering a lobby on the Master Server. The actual room-list updates will call OnRoomListUpdate.
         /// </summary>
+        /// <param name="roomList"></param>
         /// <remarks>
         /// While in the lobby, the roomlist is automatically updated in fixed intervals (which you can't modify in the public cloud).
         /// The room list gets available via OnRoomListUpdate.
         /// </remarks>
         public virtual void OnJoinedLobby()
         {
+        }
+
+        public void OnJoinedLobby(List<RoomInfo> roomList)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>

@@ -131,6 +131,7 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
 
     private void UpdateRoomList(List<RoomInfo> list)
     {
+        Debug.Log("actualitzant");
         foreach (RoomItem item in roomItemsList)
         {
             Destroy(item.gameObject);
@@ -142,6 +143,7 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
             RoomItem newRoom = Instantiate(RoomItemPrefab, contentObject);
             newRoom.NetworkParent = this;
             newRoom.SetRoomName(room.Name);
+            Debug.Log($"Room: {room.Name}");
             roomItemsList.Add(newRoom);
         }
     }

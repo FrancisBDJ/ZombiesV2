@@ -3708,10 +3708,10 @@ namespace Photon.Realtime
     /// \ingroup callbacks
     public interface ILobbyCallbacks
     {
-
         /// <summary>
         /// Called on entering a lobby on the Master Server. The actual room-list updates will call OnRoomListUpdate.
         /// </summary>
+        /// <param name="roomList"></param>
         /// <remarks>
         /// While in the lobby, the roomlist is automatically updated in fixed intervals (which you can't modify in the public cloud).
         /// The room list gets available via OnRoomListUpdate.
@@ -4337,16 +4337,7 @@ namespace Photon.Realtime
         {
             this.client = client;
         }
-
-        public void OnJoinedLobby()
-        {
-            this.client.UpdateCallbackTargets();
-
-            foreach (ILobbyCallbacks target in this)
-            {
-                target.OnJoinedLobby();
-            }
-        }
+        
 
         public void OnLeftLobby()
         {
@@ -4375,6 +4366,16 @@ namespace Photon.Realtime
             foreach (ILobbyCallbacks target in this)
             {
                 target.OnLobbyStatisticsUpdate(lobbyStatistics);
+            }
+        }
+
+       public void OnJoinedLobby()
+        {
+            this.client.UpdateCallbackTargets();
+
+            foreach (ILobbyCallbacks target in this)
+            {
+                target.OnJoinedLobby();
             }
         }
     }

@@ -15,6 +15,7 @@
 //using UnityEditor;
 //#endif
 
+using System.Collections.Generic;
 using UnityEngine;
 
 //using Photon.Pun;
